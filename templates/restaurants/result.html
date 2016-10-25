@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block sidebar %}
+
+    <ul class="nav nav-sidebar">
+        <li class="active"><a href="{% url 'rest' slug=slug %}">Сейчас</a></li>
+        <li><a href="{% url 'orders' slug=slug %}">Заказы</a></li>
+        <li><a href="#">Инвентаризации</a></li>
+        <li><a href="{% url 'products' slug=slug %}">Позиции</a></li>
+        <li><a href="{% url 'checkout' slug=slug %}">Расход</a></li>
+
+    </ul>
+
+{% endblock %}
+
+{% block content %}
+
+    <h1>{{ date }}</h1>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <tr>
+                <th>#</th>
+                <th>Расходник</th>
+                <th>Расход</th>
+                <th>Приход</th>
+                <th>Остаток</th>
+            </tr>
+            {% for obj in object_list %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ cons.0.name }}</td>
+                    <td>{{ cons.1 }}</td>
+                    <td>{{ cons.2 }}</td>
+                    <td>{{ cons.3 }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+
+{% endblock %}

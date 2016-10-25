@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block sidebar %}
+
+    <ul class="nav nav-sidebar">
+        <li class="active"><a href="{% url 'rest' slug='baklazhan' %}">Сейчас</a></li>
+        <li><a href="{% url 'orders' slug='baklazhan' %}">Заказы</a></li>
+        <li><a href="{% url 'reports' slug='baklazhan' %}">Инвентаризации</a></li>
+        <li><a href="{% url 'products' slug='baklazhan' %}">Позиции</a></li>
+        <li><a href="{% url 'checkout' slug='baklazhan' %}">Расходы</a></li>
+    </ul>
+
+{% endblock %}
+
+{% block content %}
+
+    <h2>Расходы</h2>
+    <form action="" method="post">{% csrf_token %}
+        {{ form }}
+        <div class="table-responsive">
+            {{ formset.management_form }}
+            {{ formset.non_form_errors }}
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Название</th>
+                    <th>Количество</th>
+                    <th>Удалить?</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for f in formset %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ f.product }}{{ f.id }}</td>
+                        <td>{{ f.amount }}</td>
+                        <td>{{ f.DELETE }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+            <a href="" id="add_more"><span class="mega-octicon octicon-arrow-down"></span></a>
+        </div>
+
+        <div class="row text-xs-center">
+            <input type="submit" value="Сохранить" class="btn btn-primary">
+        </div>
+    </form>
+{% endblock %}
+<script>
+    {% block jquery %}
+
+        $('#add_more').click(function (event) {
+            event.preventDefault();
+            cloneMore('tr:last', 'form');
+        });
+    {% endblock %}
+</script>

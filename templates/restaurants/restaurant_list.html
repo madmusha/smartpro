@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <h1>Рестораны</h1>
+    {% for obj in object_list %}
+        <h2><a href="{{ obj.get_absolute_url }}">{{ obj.name }}</a></h2>
+    {% endfor %}
+
+{% endblock %}

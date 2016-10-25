@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load product_tags %}
+{% block sidebar %}
+
+    <ul class="nav nav-sidebar">
+        <li class="active"><a href="{% url 'rest' slug=rest %}">Сейчас</a></li>
+        <li><a href="{% url 'orders' slug=rest %}">Заказы</a></li>
+        <li><a href="{% url 'reports' slug='baklazhan' %}">Инвентаризации</a></li>
+        <li><a href="{% url 'products' slug='baklazhan' %}">Позиции</a></li>
+        <li><a href="{% url 'checkout' slug=rest %}">Расход</a></li>
+
+    </ul>
+
+{% endblock %}
+
+{% block content %}
+
+    <h2>Расходы</h2>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Дата</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for date in dates %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td><a href="{% url 'checkout_detail' slug=rest date=date.date|date_str %}"> {{ date.date }}</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <a href="{% url 'checkout_create' slug=rest %}"><span class="mega-octicon octicon-arrow-down"></span></a>
+    </div>
+
+{% endblock %}

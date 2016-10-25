@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load product_tags %}
+{% block sidebar %}
+
+    <ul class="nav nav-sidebar">
+        <li class="active"><a href="{% url 'rest' slug=slug %}">Сейчас</a></li>
+        <li><a href="{% url 'orders' slug=slug %}">Заказы</a></li>
+        <li><a href="{% url 'reports' slug=slug %}">Инвентаризации</a></li>
+        <li><a href="{% url 'products' slug=slug %}">Позиции</a></li>
+        <li><a href="{% url 'checkout' slug=slug %}">Расход</a></li>
+    </ul>
+
+{% endblock %}
+
+{% block content %}
+
+    <h2>Инвентаризации</h2>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Дата</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for date in dates %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td><a href="{% url 'report_detail' slug=slug date=date.date|date_str %}"> {{ date.date }}</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <a href="{% url 'report_create' slug=slug %}"><span class="mega-octicon octicon-arrow-down"></span></a>
+    </div>
+
+{% endblock %}
